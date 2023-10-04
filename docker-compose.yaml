@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=fileexplorer
+      - POSTGRES_PASSWORD=supersecretpassword
+      - POSTGRES_USER=fileexplorer_user
+    ports:
+      - 5432:5432
