@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.4'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'checkstyle'
 }
 
 group = 'com.backend'
@@ -16,17 +17,38 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	// spring
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.flywaydb:flyway-core:9.22.1'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-	runtimeOnly 'org.postgresql:postgresql'
+
+	// lombok
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	testCompileOnly 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	// migrations
+	implementation 'org.flywaydb:flyway-core:9.22.1'
+
+	// database
+	implementation 'org.postgresql:postgresql:42.6.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.1'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.1'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.1'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+checkstyle {
+	toolVersion '10.7.0'
+	configFile file("config/checkstyle/checkstyle.xml")
+	ignoreFailures false
 }

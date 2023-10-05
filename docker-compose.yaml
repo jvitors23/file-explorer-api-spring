@@ -7,3 +7,13 @@ services:
       - POSTGRES_USER=fileexplorer_user
     ports:
       - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "user@email.com"
+      PGADMIN_DEFAULT_PASSWORD: "12345"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
